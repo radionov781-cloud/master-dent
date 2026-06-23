@@ -3,18 +3,22 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
+const path = require("path");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+// Віддавати всі статичні файли
+app.use(express.static(__dirname));
+
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
 const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
-    res.send("MASTER DENT API працює ✅");
+    res.sendFile(path.join(__dirname, "index.html"));
 });
 
 app.post("/send", async (req, res) => {
